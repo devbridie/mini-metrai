@@ -5,14 +5,14 @@ import com.devbridie.minimetrai.models.GameState
 import com.devbridie.minimetrai.models.Inventory
 import com.devbridie.minimetrai.models.Passenger
 import com.devbridie.minimetrai.models.StationType
-import io.kotlintest.specs.StringSpec
+import io.kotlintest.specs.FreeSpec
 import java.io.File
 
-class AnalyzerTests : StringSpec() {
+class AnalyzerTests : FreeSpec() {
     val analyzer: Analyzer = Analyzer()
 
     init {
-        "should analyze simple screenshot correctly" {
+        "should analyze simple screenshot correctly" - {
             val state = screenshot("start")
 
             "should analyze inventory correctly" {
@@ -24,14 +24,16 @@ class AnalyzerTests : StringSpec() {
                 )
             }
 
-            "should analyze stations correctly" {
-                state.graph.stations.size shouldBe 3
-                state.graph.stations.map { stations -> stations.stationType }
-                        .containsAll(listOf(StationType.CIRCLE, StationType.SQUARE, StationType.TRIANGLE)) shouldBe true
-
+            "should analyze stations correctly" - {
+                "should identify all stations" {
+                    state.graph.stations.size shouldBe 3
+                    state.graph.stations.map { stations -> stations.stationType }
+                            .containsAll(listOf(StationType.CIRCLE, StationType.SQUARE, StationType.TRIANGLE)) shouldBe true
+                }
                 "should identify passenger waiting at Circle" {
-                    state.graph.stations.find { station -> station.stationType == StationType.CIRCLE }!!
-                            .passengers shouldBe listOf(Passenger(StationType.SQUARE))
+                    val circle = state.graph.stations.find { station -> station.stationType == StationType.CIRCLE }
+                    (circle == null) shouldBe false
+                    circle!!.passengers shouldBe listOf(Passenger(StationType.SQUARE))
                 }
             }
         }
