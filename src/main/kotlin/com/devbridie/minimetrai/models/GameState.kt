@@ -1,6 +1,13 @@
 package com.devbridie.minimetrai.models
 
+import java.util.*
+
+/**
+ * @param x 0 .. 1, percentage on the screen on which this element is located
+ * @param y 0 .. 1, percentage on the screen on which this element is located
+ */
 data class Position(val x: Double, val y: Double)
+
 enum class StationType {
     CIRCLE,
     TRIANGLE,
@@ -37,7 +44,12 @@ data class Graph(val stations: List<Station>, val placedLines: List<PlacedLine>)
 data class GameState(
         val inventory: Inventory,
         val graph: Graph,
-        val passengersTransported: Int
+        val passengersTransported: Optional<Int>,
+        val dateTime: Optional<DateTime>
 )
 
+/**
+ * @param day 0 - Monday, 1 - Tuesday ...
+ * @param time 0 .. 1, time elapsed on this day
+ */
 data class DateTime(val day: Int, val time: Double)

@@ -1,11 +1,13 @@
 package com.devbridie.minimetrai
 
 import com.devbridie.minimetrai.cv.Analyzer
+import com.devbridie.minimetrai.models.DateTime
 import com.devbridie.minimetrai.models.GameState
 import com.devbridie.minimetrai.models.Passenger
 import com.devbridie.minimetrai.models.StationType
 import io.kotlintest.specs.FreeSpec
 import java.io.File
+import java.util.*
 
 class AnalyzerTests : FreeSpec() {
     val analyzer: Analyzer = Analyzer()
@@ -52,6 +54,12 @@ class AnalyzerTests : FreeSpec() {
                         state.graph.placedLines should haveSize(0)
                     }
                 }
+            }
+            "should not analyze datetime" {
+                state.dateTime shouldBe Optional.empty<DateTime>()
+            }
+            "should not analyze passengers transported" {
+                state.passengersTransported shouldBe Optional.empty<DateTime>()
             }
         }
     }
