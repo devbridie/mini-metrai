@@ -21,11 +21,11 @@ enum class TrainType {
     SHINKANSEN
 }
 
-class Inventory(val trains: Int, val specialTrains: Int, val carriages: Int, val crossings: Int)
+data class Inventory(val trains: Int, val specialTrains: Int, val carriages: Int, val crossings: Int)
 class Crossing()
 
-class Graph(val stations: List<Station>, val placedLines: List<PlacedLine>) {
-    class PlacedLine(val passingStations: List<Station>) {
+data class Graph(val stations: List<Station>, val placedLines: List<PlacedLine>) {
+    data class PlacedLine(val passingStations: List<Station>) {
         sealed class Carrier(val capacity: Int, val passengers: List<Passenger>) {
             class Train(val type: TrainType, capacity: Int, passengers: List<Passenger>, val carriages: List<Carriage>) : Carrier(capacity, passengers)
             class Carriage(capacity: Int, passengers: List<Passenger>) : Carrier(capacity, passengers)
