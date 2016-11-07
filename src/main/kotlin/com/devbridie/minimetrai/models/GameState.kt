@@ -6,7 +6,9 @@ import java.util.*
  * @param x 0 .. 1, percentage on the screen on which this element is located
  * @param y 0 .. 1, percentage on the screen on which this element is located
  */
-data class Position(val x: Double, val y: Double)
+data class Position(val x: Double, val y: Double) {
+    fun dist(other: Position): Double = Math.sqrt(Math.pow(this.x - other.x, 2.0) + Math.pow(this.y - other.y, 2.0))
+}
 
 enum class StationType {
     CIRCLE,
